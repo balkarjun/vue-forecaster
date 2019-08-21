@@ -10,6 +10,20 @@
       <div class="middle">
         {{ temp }}
       </div>
+      <div class="bottom">
+        <div>
+          <p>{{ feelsLike }}</p>
+          <p>Feels Like</p>
+        </div>
+        <div>
+          <p>{{ precipChance }}%</p>
+          <p>Chance of Rain</p>
+        </div>
+        <div>
+          <p>{{ uvIndex }}</p>
+          <p>UV Index</p>
+        </div>
+      </div>
     </section>
     <section>
 
@@ -23,7 +37,10 @@ export default {
   data() {
     return {
       response: null,
-      temp: 24
+      temp: 24,
+      feelsLike: 21,
+      precipChance: 69,
+      uvIndex: 1
     }
   },
   created() {
@@ -458,7 +475,7 @@ main {
 }
 
 .top {
-  padding: 12px;
+  padding: 12px 12px 0 12px;
 }
 
 .inputbar {
@@ -486,9 +503,14 @@ input {
 }
 
 .middle {
-  background-color: teal;
-  height: 100%;
   font-size: 120px;
   text-align: center;
+}
+
+.bottom {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  padding: 6px 0;
 }
 </style>
