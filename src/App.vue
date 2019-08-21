@@ -7,6 +7,9 @@
           <input type="text" value="Tokyo, Japan">
         </div>
       </div>
+      <div class="middle">
+        {{ temp }}
+      </div>
     </section>
     <section>
 
@@ -19,7 +22,8 @@ export default {
   name: 'app',
   data() {
     return {
-      response: null
+      response: null,
+      temp: 24
     }
   },
   created() {
@@ -479,5 +483,12 @@ input {
   border-radius: 0 15px 15px 0;
   border: none;
   outline: none;
+}
+
+.middle {
+  background-color: teal;
+  height: 100%;
+  font-size: 120px;
+  text-align: center;
 }
 </style>
