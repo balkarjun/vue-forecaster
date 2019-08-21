@@ -26,7 +26,7 @@
       </div>
     </section>
     <section>
-
+      <p class="summary">{{ summary }}</p>
     </section>
   </main>
 </template>
@@ -40,7 +40,8 @@ export default {
       temp: 24,
       feelsLike: 21,
       precipChance: 69,
-      uvIndex: 1
+      uvIndex: 1,
+      summary: 'Partly Cloudy'
     }
   },
   created() {
@@ -512,5 +513,10 @@ input {
   justify-content: space-around;
   text-align: center;
   padding: 6px 0;
+}
+
+.summary {
+  text-align: center;
+  padding-top: 12px;
 }
 </style>
