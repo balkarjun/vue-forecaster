@@ -1,9 +1,14 @@
 <template>
   <main>
-    <section class="top">
-
+    <section class="info">
+      <div class="top">
+        <div class="inputbar">
+          <i class="fas fa-map-marker-alt"></i>
+          <input type="text" value="Tokyo, Japan">
+        </div>
+      </div>
     </section>
-    <section class="bottom">
+    <section>
 
     </section>
   </main>
@@ -423,8 +428,15 @@ export default {
 </script>
 
 <style>
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 body {
   background-color: royalblue;
+  font-family: sans-serif;
 }
 
 main {
@@ -435,9 +447,37 @@ main {
   background-color: white;
 }
 
-.top {
+.info {
   height: 240px;
   border-radius: 8px 8px 0 0;
   background-color: skyblue;
+}
+
+.top {
+  padding: 12px;
+}
+
+.inputbar {
+  display: flex;
+  height: 30px;
+  width: 200px;
+  background-color: rgba(0, 0, 0, .2);
+  border-radius: 15px;
+  align-items: center;
+}
+
+.inputbar i {
+  padding: 0 12px;
+  font-size: 18px;
+}
+
+input {
+  font: inherit;
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+  border-radius: 0 15px 15px 0;
+  border: none;
+  outline: none;
 }
 </style>
