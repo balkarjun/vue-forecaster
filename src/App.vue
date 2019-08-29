@@ -6,6 +6,10 @@
           <i class="fas fa-map-marker-alt"></i>
           <input type="text" value="Tokyo, Japan">
         </div>
+        <div class="buttons">
+          <button class="active">C</button>
+          <button>F</button>
+        </div>
       </div>
       <div class="temperature">
         {{ today.temperature }}
@@ -494,6 +498,9 @@ main {
 
 .top {
   padding: 12px 12px 0 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .inputbar {
@@ -517,6 +524,22 @@ input {
   background-color: transparent;
   border: none;
   outline: none;
+}
+
+.buttons button {
+  font: inherit;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin-right: 4px;
+  background-color: transparent;
+}
+
+.buttons button.active {
+  background-color: teal;
 }
 
 .temperature {
