@@ -7,8 +7,8 @@
           <input type="text" value="Tokyo, Japan">
         </div>
         <div class="buttons">
-          <button class="active">C</button>
-          <button>F</button>
+          <button @click="toggleUnit" :class="{active: isCelsius}">C</button>
+          <button @click="toggleUnit" :class="{active: !isCelsius}">F</button>
         </div>
       </div>
       <div class="temperature">
@@ -54,7 +54,13 @@ export default {
   data() {
     return {
       today: null,
-      forecasts: null
+      forecasts: null,
+      isCelsius: true
+    }
+  },
+  methods: {
+    toggleUnit() {
+      this.isCelsius = !this.isCelsius;
     }
   },
   created() {
