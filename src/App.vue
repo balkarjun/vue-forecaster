@@ -8,30 +8,29 @@
         </div>
       </div>
       <div class="middle">
-        {{ temp }}
+        {{ forecasts[0].temperature }}
       </div>
       <div class="bottom">
         <div>
-          <p>{{ feelsLike }}</p>
+          <p>{{ forecasts[0].feelsLike }}</p>
           <p>Feels Like</p>
         </div>
         <div>
-          <p>{{ precipChance }}%</p>
+          <p>{{ forecasts[0].precipChance }}%</p>
           <p>Chance of Rain</p>
         </div>
         <div>
-          <p>{{ uvIndex }}</p>
+          <p>{{ forecasts[0].uvIndex }}</p>
           <p>UV Index</p>
         </div>
       </div>
     </section>
     <section>
-      <p class="summary">{{ summary }}</p>
+      <p class="summary">{{ forecasts[0].summary }}</p>
       <div class="forecast-list">
         <div class="forecast" v-for="(item, index) in forecasts" :key="index">
-          Today
-          Icon
-          Min-Max
+          {{ item.min }} - {{ item.max }}
+          {{ item.icon }}
         </div>
       </div>
     </section>
@@ -43,13 +42,7 @@ export default {
   name: 'app',
   data() {
     return {
-      response: null,
-      temp: 24,
-      feelsLike: 21,
-      precipChance: 69,
-      uvIndex: 1,
-      summary: 'Partly Cloudy',
-      forecasts: [0, 0, 0, 0]
+      forecasts: null
     }
   },
   created() {
@@ -421,7 +414,7 @@ export default {
       "offset": 1
     };
 
-    const forecast = [
+    this.forecasts = [
       {
         temperature: res.currently.temperature,
         feelsLike: res.currently.apparentTemperature,
