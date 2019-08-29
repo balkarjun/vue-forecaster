@@ -8,25 +8,25 @@
         </div>
       </div>
       <div class="middle">
-        {{ forecasts[0].temperature }}
+        {{ today.temperature }}
       </div>
       <div class="bottom">
         <div>
-          <p>{{ forecasts[0].feelsLike }}</p>
+          <p>{{ today.feelsLike }}</p>
           <p>Feels Like</p>
         </div>
         <div>
-          <p>{{ forecasts[0].precipChance }}%</p>
+          <p>{{ today.precipChance }}%</p>
           <p>Chance of Rain</p>
         </div>
         <div>
-          <p>{{ forecasts[0].uvIndex }}</p>
+          <p>{{ today.uvIndex }}</p>
           <p>UV Index</p>
         </div>
       </div>
     </section>
     <section>
-      <p class="summary">{{ forecasts[0].summary }}</p>
+      <p class="summary">{{ today.summary }}</p>
       <div class="forecast-list">
         <div class="forecast" v-for="(item, index) in forecasts" :key="index">
           {{ item.min }} - {{ item.max }}
@@ -42,6 +42,7 @@ export default {
   name: 'app',
   data() {
     return {
+      today: null,
       forecasts: null
     }
   },
@@ -427,13 +428,16 @@ export default {
       ['partly-cloudy-night', 'cloud-moon']
     ]);
 
+    this.today = {
+      temperature: res.currently.temperature,
+      feelsLike: res.currently.apparentTemperature,
+      precipChance: res.currently.precipProbability,
+      uvIndex: res.currently.uvIndex,
+      summary: res.daily.data[0].summary
+    }
+
     this.forecasts = [
       {
-        temperature: res.currently.temperature,
-        feelsLike: res.currently.apparentTemperature,
-        precipChance: res.currently.precipProbability,
-        uvIndex: res.currently.uvIndex,
-        summary: res.daily.data[0].summary,
         min: res.daily.data[0].temperatureMin,
         max: res.daily.data[0].temperatureMax,
         icon: icons.get(res.daily.data[0].icon)
