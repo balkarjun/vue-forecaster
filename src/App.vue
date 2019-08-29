@@ -414,6 +414,19 @@ export default {
       "offset": 1
     };
 
+    const icons = new Map([
+      ['clear-day', 'sun'],
+      ['clear-night', 'moon'],
+      ['rain', 'cloud-rain'],
+      ['snow', 'snowflake'],
+      ['sleet', 'cloud-rain'],
+      ['wind', 'wind'],
+      ['fog', 'smog'],
+      ['cloudy', 'cloud'],
+      ['partly-cloudy-day', 'cloud-sun'],
+      ['partly-cloudy-night', 'cloud-moon']
+    ]);
+
     this.forecasts = [
       {
         temperature: res.currently.temperature,
@@ -423,25 +436,25 @@ export default {
         summary: res.daily.data[0].summary,
         min: res.daily.data[0].temperatureMin,
         max: res.daily.data[0].temperatureMax,
-        icon: res.daily.data[0].icon
+        icon: icons.get(res.daily.data[0].icon)
       },
       {
         min: res.daily.data[1].temperatureMin,
         max: res.daily.data[1].temperatureMax,
-        icon: res.daily.data[1].icon
+        icon: icons.get(res.daily.data[1].icon)
       },
       {
         min: res.daily.data[2].temperatureMin,
         max: res.daily.data[2].temperatureMax,
-        icon: res.daily.data[2].icon
+        icon: icons.get(res.daily.data[2].icon)
       },
       {
         min: res.daily.data[3].temperatureMin,
         max: res.daily.data[3].temperatureMax,
-        icon: res.daily.data[3].icon
+        icon: icons.get(res.daily.data[3].icon)
       }
     ];
-    console.log(forecast);
+    // console.log(forecast);
     // fetch(url)
     // .then(res => res.json())
     // .then(data => console.log(data))
