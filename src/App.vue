@@ -27,6 +27,13 @@
     </section>
     <section>
       <p class="summary">{{ summary }}</p>
+      <div class="forecast-list">
+        <div class="forecast" v-for="(item, index) in forecasts" :key="index">
+          Today
+          Icon
+          Min-Max
+        </div>
+      </div>
     </section>
   </main>
 </template>
@@ -41,7 +48,8 @@ export default {
       feelsLike: 21,
       precipChance: 69,
       uvIndex: 1,
-      summary: 'Partly Cloudy'
+      summary: 'Partly Cloudy',
+      forecasts: [0, 0, 0, 0]
     }
   },
   created() {
@@ -518,5 +526,17 @@ input {
 .summary {
   text-align: center;
   padding-top: 12px;
+}
+
+.forecast-list {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.forecast {
+  width: 140px;
+  height: 180px;
+  border-radius: 8px;
+  background-color: skyblue;
 }
 </style>
