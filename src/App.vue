@@ -29,6 +29,7 @@
       <p class="summary">{{ today.summary }}</p>
       <div class="forecast-list">
         <div class="forecast" v-for="(item, index) in forecasts" :key="index">
+          {{ item.day }}
           <i class="fas" :class="`fa-${item.icon}`"></i>
           {{ item.min }} - {{ item.max }}
         </div>
@@ -439,7 +440,12 @@ export default {
     this.forecasts = []
     for (let i = 0; i < 4; i++) {
       const current = res.daily.data[i];
+      // *1000 to convert from s to ms
+      const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      const index = new Date(current.time * 1000).getDay();
+      
       this.forecasts.push({
+        day: days[index],
         min: current.temperatureMin,
         max: current.temperatureMax,
         icon: icons.get(current.icon)
