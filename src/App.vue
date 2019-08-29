@@ -430,8 +430,8 @@ export default {
     ]);
 
     this.today = {
-      temperature: res.currently.temperature,
-      feelsLike: res.currently.apparentTemperature,
+      temperature: Math.round(res.currently.temperature),
+      feelsLike: Math.round(res.currently.apparentTemperature),
       precipChance: res.currently.precipProbability,
       uvIndex: res.currently.uvIndex,
       summary: res.daily.data[0].summary
@@ -446,8 +446,8 @@ export default {
       
       this.forecasts.push({
         day: days[index],
-        min: current.temperatureMin,
-        max: current.temperatureMax,
+        min: Math.round(current.temperatureMin),
+        max: Math.round(current.temperatureMax),
         icon: icons.get(current.icon)
       });
     }
