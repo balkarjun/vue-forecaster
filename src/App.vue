@@ -498,24 +498,23 @@ main {
 
 .inputbar {
   display: flex;
-  height: 30px;
-  width: 200px;
+  height: 36px;
+  width: 180px;
   background-color: rgba(0, 0, 0, .2);
-  border-radius: 15px;
+  border-radius: 8px;
   align-items: center;
 }
 
 .inputbar i {
-  padding: 0 12px;
+  padding-left: 12px;
+  padding-right: 8px;
   font-size: 18px;
 }
 
 input {
   font: inherit;
   height: 100%;
-  width: 100%;
   background-color: transparent;
-  border-radius: 0 15px 15px 0;
   border: none;
   outline: none;
 }
