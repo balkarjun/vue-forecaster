@@ -436,28 +436,15 @@ export default {
       summary: res.daily.data[0].summary
     }
 
-    this.forecasts = [
-      {
-        min: res.daily.data[0].temperatureMin,
-        max: res.daily.data[0].temperatureMax,
-        icon: icons.get(res.daily.data[0].icon)
-      },
-      {
-        min: res.daily.data[1].temperatureMin,
-        max: res.daily.data[1].temperatureMax,
-        icon: icons.get(res.daily.data[1].icon)
-      },
-      {
-        min: res.daily.data[2].temperatureMin,
-        max: res.daily.data[2].temperatureMax,
-        icon: icons.get(res.daily.data[2].icon)
-      },
-      {
-        min: res.daily.data[3].temperatureMin,
-        max: res.daily.data[3].temperatureMax,
-        icon: icons.get(res.daily.data[3].icon)
-      }
-    ];
+    this.forecasts = []
+    for (let i = 0; i < 4; i++) {
+      const current = res.daily.data[i];
+      this.forecasts.push({
+        min: current.temperatureMin,
+        max: current.temperatureMax,
+        icon: icons.get(current.icon)
+      });
+    }
     // console.log(forecast);
     // fetch(url)
     // .then(res => res.json())
