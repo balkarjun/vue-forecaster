@@ -7,10 +7,10 @@
           <input type="text" value="Tokyo, Japan">
         </div>
       </div>
-      <div class="middle">
+      <div class="temperature">
         {{ today.temperature }}
       </div>
-      <div class="bottom">
+      <div class="extras">
         <div>
           <p>{{ today.feelsLike }}</p>
           <p>Feels Like</p>
@@ -519,16 +519,15 @@ input {
   outline: none;
 }
 
-.middle {
-  font-size: 120px;
+.temperature {
+  font-size: 116px;
   text-align: center;
 }
 
-.bottom {
+.extras {
   display: flex;
   justify-content: space-around;
   text-align: center;
-  padding: 6px 0;
 }
 
 .summary {
