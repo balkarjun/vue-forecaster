@@ -29,8 +29,8 @@
       <p class="summary">{{ today.summary }}</p>
       <div class="forecast-list">
         <div class="forecast" v-for="(item, index) in forecasts" :key="index">
+          <i class="fas" :class="`fa-${item.icon}`"></i>
           {{ item.min }} - {{ item.max }}
-          {{ item.icon }}
         </div>
       </div>
     </section>
