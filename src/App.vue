@@ -38,6 +38,9 @@
         </div>
       </div>
     </section>
+    <footer>
+      <a href="https://darksky.net/poweredby/">Powered by DarkSky</a>
+    </footer>
   </main>
 </template>
 
@@ -563,5 +566,17 @@ input {
   padding-top: 26px;
   display: flex;
   justify-content: space-evenly;
+}
+
+footer {
+  font-size: 15px;
+  text-align: center;
+  margin-top: 18px;
+  padding: 12px 0;
+}
+
+footer a {
+  color: black;
+  text-decoration: none;
 }
 </style>
