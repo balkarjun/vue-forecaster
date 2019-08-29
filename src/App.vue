@@ -29,9 +29,12 @@
       <p class="summary">{{ today.summary }}</p>
       <div class="forecast-list">
         <div class="forecast" v-for="(item, index) in forecasts" :key="index">
-          {{ item.day }}
+          <p class="day">{{ item.day }}</p>
           <i class="fas" :class="`fa-${item.icon}`"></i>
-          {{ item.min }} - {{ item.max }}
+          <span class="minmax">
+            <p>{{ item.min }}</p>
+            <p>{{ item.max }}</p>
+          </span>
         </div>
       </div>
     </section>
@@ -534,6 +537,7 @@ input {
 .forecast-list {
   display: flex;
   justify-content: space-evenly;
+  padding-top: 20px;
 }
 
 .forecast {
@@ -541,5 +545,23 @@ input {
   height: 180px;
   border-radius: 8px;
   background-color: skyblue;
+}
+
+.day {
+  padding-top: 16px;
+  text-align: center;
+}
+
+.forecast i {
+  display: block;
+  font-size: 56px;
+  text-align: center;
+  padding-top: 24px;
+}
+
+.minmax {
+  padding-top: 26px;
+  display: flex;
+  justify-content: space-evenly;
 }
 </style>
