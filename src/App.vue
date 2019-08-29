@@ -475,7 +475,7 @@ export default {
 
 body {
   background-color: royalblue;
-  font-family: sans-serif;
+  font-family: 'Rubik', sans-serif;
 }
 
 main {
