@@ -497,6 +497,7 @@ export default {
         summary: res.daily.data[0].summary
       }
 
+      this.forecasts = [];
       for (let i = 0; i < 4; i++) {
         const current = res.daily.data[i];      
         this.forecasts.push({
