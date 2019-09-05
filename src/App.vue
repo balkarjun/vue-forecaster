@@ -544,13 +544,13 @@ body {
   width: 650px;
   height: 530px;
   margin: 0 auto;
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: white;
 }
 
 .info {
   height: 240px;
-  border-radius: 8px 8px 0 0;
+  border-radius: 4px 4px 0 0;
   background-color: skyblue;
 }
 
@@ -614,7 +614,7 @@ body {
 .forecast {
   width: 140px;
   height: 180px;
-  border-radius: 8px;
+  border-radius: 4px;
   background-color: skyblue;
 }
 
