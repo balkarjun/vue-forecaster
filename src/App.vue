@@ -31,6 +31,7 @@
     </section>
     <section>
       <p class="summary">{{ today.summary }}</p>
+      <p class="relative-time">Updated {{ timeSince }}</p>
       <div class="forecast-list">
         <div class="forecast" v-for="(item, index) in forecasts" :key="index">
           <p class="day">{{ item.day }}</p>
@@ -53,6 +54,8 @@ export default {
   name: 'app',
   data() {
     return {
+      start: 0,
+      timeSince: 0,
       today: null,
       forecasts: null,
       isCelsius: true
@@ -61,6 +64,16 @@ export default {
   methods: {
     toggleUnit() {
       this.isCelsius = !this.isCelsius;
+    },
+    updateTime() {
+      const diff = (new Date().getTime() - this.start) / 1000;
+
+      if (diff < 60) 
+        this.timeSince = 'just now';
+      else if (diff < 3600) 
+        this.timeSince = `${parseInt(diff/60)} min ago`;
+      else 
+        this.timeSince = `${parseInt(diff/3600)} hr ago`;
     }
   },
   created() {
@@ -472,6 +485,10 @@ export default {
     // .then(res => res.json())
     // .then(data => console.log(data))
     // .catch(err => console.log(err))
+
+    this.start = new Date().getTime();
+    this.updateTime();
+    setInterval(this.updateTime, 60*1000);
   }
 }
 </script>
@@ -564,6 +581,12 @@ input {
   padding-top: 12px;
 }
 
+.relative-time {
+  text-align: center;
+  font-size: 15px;
+  color: gray;
+}
+
 .forecast-list {
   display: flex;
   justify-content: space-evenly;
@@ -598,7 +621,6 @@ input {
 footer {
   font-size: 15px;
   text-align: center;
-  margin-top: 18px;
   padding: 12px 0;
 }
 
