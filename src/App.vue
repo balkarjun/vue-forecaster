@@ -24,15 +24,15 @@
         <div class="extras">
           <div>
             <p>{{ today.feelsLike }}</p>
-            <p>Feels Like</p>
+            <p class="attribute">Feels Like</p>
           </div>
           <div>
             <p>{{ today.precipChance }}%</p>
-            <p>Chance of Rain</p>
+            <p class="attribute">Chance of Rain</p>
           </div>
           <div>
             <p>{{ today.uvIndex }}</p>
-            <p>UV Index</p>
+            <p class="attribute">UV Index</p>
           </div>
         </div>
       </section>
@@ -40,7 +40,7 @@
         <p class="summary">{{ today.summary }}</p>
         <p class="relative-time">Updated {{ timeSince }}</p>
         <div class="forecast-list">
-          <div class="forecast" v-for="(item, index) in forecasts" :key="index">
+          <div class="forecast" v-for="(item, index) in forecasts" :key="index" :class="{active: index === 0}" >
             <p class="day">{{ item.day }}</p>
             <i class="fas" :class="item.icon"></i>
             <span class="minmax">
@@ -521,6 +521,15 @@ export default {
 </script>
 
 <style>
+:root {
+  --blue-dark: #152233;
+  --blue: #2A4365;
+  --blue-light: #4C688F;
+  --blue-lightest: #DBE1E9;
+  --gray: #666666;
+  --black: #212121;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -528,8 +537,9 @@ export default {
 }
 
 body {
-  background-color: royalblue;
   font-family: 'Rubik', sans-serif;
+  color: white;
+  background-color: var(--blue-light);
 }
 
 .inputbar {
@@ -547,16 +557,18 @@ body {
   border-radius: 4px 0 0 4px;
   font: inherit;
   padding-left: 24px;
+  color: var(--black);
 }
 
 .inputbar button {
   width: 100px;
   height: 50px;
   border: none;
-  background-color: lightblue;
   font: inherit;
   border-radius: 0 4px 4px 0;
   cursor: pointer;
+  color: var(--blue);
+  background-color: var(--blue-lightest);
 }
 
 .inputbar i {
@@ -574,7 +586,7 @@ body {
 .info {
   height: 240px;
   border-radius: 4px 4px 0 0;
-  background-color: skyblue;
+  background-color: var(--blue-dark);
 }
 
 .top {
@@ -588,6 +600,7 @@ body {
   padding-left: 12px;
   padding-right: 8px;
   font-size: 18px;
+  color: var(--blue-light);
 }
 
 .buttons button {
@@ -600,10 +613,11 @@ body {
   cursor: pointer;
   margin-right: 4px;
   background-color: transparent;
+  color: white;
 }
 
 .buttons button.active {
-  background-color: teal;
+  background-color: var(--blue-light);
 }
 
 .temperature {
@@ -617,15 +631,20 @@ body {
   text-align: center;
 }
 
+.attribute {
+  color: var(--blue-lightest);
+}
+
 .summary {
   text-align: center;
   padding-top: 12px;
+  color: var(--black);
 }
 
 .relative-time {
   text-align: center;
   font-size: 15px;
-  color: gray;
+  color: var(--gray);
 }
 
 .forecast-list {
@@ -638,7 +657,13 @@ body {
   width: 140px;
   height: 180px;
   border-radius: 4px;
-  background-color: skyblue;
+  color: var(--blue);
+  border: 1px solid var(--blue-lightest);
+}
+
+.forecast.active {
+  color: white;
+  background-color: var(--blue-dark);
 }
 
 .day {
@@ -666,7 +691,7 @@ footer {
 }
 
 footer a {
-  color: black;
+  color: var(--gray);
   text-decoration: none;
 }
 </style>
