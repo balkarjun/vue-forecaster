@@ -1,51 +1,59 @@
 <template>
   <main>
-    <section class="info">
-      <div class="top">
-        <div class="location">
-          <i class="fas fa-map-marker-alt"></i>
-          <span>{{ location }}</span>
+    <form class="inputbar">
+      <input type="text" placeholder="Enter a location">
+      <button>
+        <i class="fas fa-search"></i>
+      </button>
+    </form>
+    <div class="app-content">
+      <section class="info">
+        <div class="top">
+          <div class="location">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>{{ location }}</span>
+          </div>
+          <div class="buttons">
+            <button @click="toggleUnit" :class="{active: isCelsius}">C</button>
+            <button @click="toggleUnit" :class="{active: !isCelsius}">F</button>
+          </div>
         </div>
-        <div class="buttons">
-          <button @click="toggleUnit" :class="{active: isCelsius}">C</button>
-          <button @click="toggleUnit" :class="{active: !isCelsius}">F</button>
+        <div class="temperature">
+          {{ today.temperature }}
         </div>
-      </div>
-      <div class="temperature">
-        {{ today.temperature }}
-      </div>
-      <div class="extras">
-        <div>
-          <p>{{ today.feelsLike }}</p>
-          <p>Feels Like</p>
+        <div class="extras">
+          <div>
+            <p>{{ today.feelsLike }}</p>
+            <p>Feels Like</p>
+          </div>
+          <div>
+            <p>{{ today.precipChance }}%</p>
+            <p>Chance of Rain</p>
+          </div>
+          <div>
+            <p>{{ today.uvIndex }}</p>
+            <p>UV Index</p>
+          </div>
         </div>
-        <div>
-          <p>{{ today.precipChance }}%</p>
-          <p>Chance of Rain</p>
+      </section>
+      <section>
+        <p class="summary">{{ today.summary }}</p>
+        <p class="relative-time">Updated {{ timeSince }}</p>
+        <div class="forecast-list">
+          <div class="forecast" v-for="(item, index) in forecasts" :key="index">
+            <p class="day">{{ item.day }}</p>
+            <i class="fas" :class="item.icon"></i>
+            <span class="minmax">
+              <p>{{ item.min }}</p>
+              <p>{{ item.max }}</p>
+            </span>
+          </div>
         </div>
-        <div>
-          <p>{{ today.uvIndex }}</p>
-          <p>UV Index</p>
-        </div>
-      </div>
-    </section>
-    <section>
-      <p class="summary">{{ today.summary }}</p>
-      <p class="relative-time">Updated {{ timeSince }}</p>
-      <div class="forecast-list">
-        <div class="forecast" v-for="(item, index) in forecasts" :key="index">
-          <p class="day">{{ item.day }}</p>
-          <i class="fas" :class="item.icon"></i>
-          <span class="minmax">
-            <p>{{ item.min }}</p>
-            <p>{{ item.max }}</p>
-          </span>
-        </div>
-      </div>
-    </section>
-    <footer>
-      <a href="https://darksky.net/poweredby/">Powered by DarkSky</a>
-    </footer>
+      </section>
+      <footer>
+        <a href="https://darksky.net/poweredby/">Powered by DarkSky</a>
+      </footer>
+    </div>
   </main>
 </template>
 
@@ -501,10 +509,41 @@ body {
   font-family: 'Rubik', sans-serif;
 }
 
-main {
+.inputbar {
+  margin-top: 80px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.inputbar input {
+  width: 550px;
+  height: 50px;
+  border: none;
+  outline: none;
+  border-radius: 4px 0 0 4px;
+  font: inherit;
+  padding-left: 24px;
+}
+
+.inputbar button {
+  width: 100px;
+  height: 50px;
+  border: none;
+  background-color: lightblue;
+  font: inherit;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}
+
+.inputbar i {
+  font-size: 18px;
+}
+
+.app-content {
   width: 650px;
   height: 530px;
-  margin: 100px auto;
+  margin: 0 auto;
   border-radius: 8px;
   background-color: white;
 }
