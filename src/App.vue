@@ -2,9 +2,9 @@
   <main>
     <section class="info">
       <div class="top">
-        <div class="inputbar">
+        <div class="location">
           <i class="fas fa-map-marker-alt"></i>
-          <input type="text" value="Tokyo, Japan">
+          <span>{{ location }}</span>
         </div>
         <div class="buttons">
           <button @click="toggleUnit" :class="{active: isCelsius}">C</button>
@@ -58,7 +58,8 @@ export default {
       timeSince: 0,
       today: null,
       forecasts: [],
-      isCelsius: true
+      isCelsius: true,
+      location: 'Tokyo, Japan'
     }
   },
   methods: {
@@ -521,27 +522,10 @@ main {
   align-items: center;
 }
 
-.inputbar {
-  display: flex;
-  height: 36px;
-  width: 180px;
-  background-color: rgba(0, 0, 0, .2);
-  border-radius: 8px;
-  align-items: center;
-}
-
-.inputbar i {
+.location i {
   padding-left: 12px;
   padding-right: 8px;
   font-size: 18px;
-}
-
-input {
-  font: inherit;
-  height: 100%;
-  background-color: transparent;
-  border: none;
-  outline: none;
 }
 
 .buttons button {
