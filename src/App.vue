@@ -1,7 +1,7 @@
 <template>
   <main>
-    <form class="inputbar">
-      <input type="text" placeholder="Enter a location">
+    <form @submit.prevent="updateLocation" class="inputbar">
+      <input type="text" placeholder="Enter a location" v-model="inputValue">
       <button>
         <i class="fas fa-search"></i>
       </button>
@@ -11,7 +11,7 @@
         <div class="top">
           <div class="location">
             <i class="fas fa-map-marker-alt"></i>
-            <span>{{ location }}</span>
+            <span>{{ location }} - {{ latlong }}</span>
           </div>
           <div class="buttons">
             <button @click="toggleUnit" :class="{active: isCelsius}">C</button>
@@ -67,10 +67,31 @@ export default {
       today: null,
       forecasts: [],
       isCelsius: true,
-      location: 'Tokyo, Japan'
+      location: 'Tokyo, Japan',
+      latlong: '0,0',
+      inputValue: ''
     }
   },
   methods: {
+    updateLocation() {
+      const loc = this.inputValue.trim();
+      const proxy = 'https://cors-anywhere.herokuapp.com/';
+
+      if (loc !== '') {
+        const url = `${proxy}https://darksky.net/geo?q=${loc}`;
+
+        fetch(url)
+        .then(res => res.json())
+        .then(data => {
+          if (data.error) {
+            console.log(data.error);
+          } else {
+            this.latlong = `${data.latitude},${data.longitude}`;
+          }
+        });
+      }
+      this.inputValue = '';
+    },
     toggleUnit() {
       this.isCelsius = !this.isCelsius;
     },
