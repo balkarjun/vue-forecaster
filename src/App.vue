@@ -35,7 +35,7 @@
       <div class="forecast-list">
         <div class="forecast" v-for="(item, index) in forecasts" :key="index">
           <p class="day">{{ item.day }}</p>
-          <i class="fas" :class="`fa-${item.icon}`"></i>
+          <i class="fas" :class="item.icon"></i>
           <span class="minmax">
             <p>{{ item.min }}</p>
             <p>{{ item.max }}</p>
@@ -57,7 +57,7 @@ export default {
       start: 0,
       timeSince: 0,
       today: null,
-      forecasts: null,
+      forecasts: [],
       isCelsius: true
     }
   },
@@ -445,18 +445,18 @@ export default {
       "offset": 1
     };
 
-    const icons = new Map([
-      ['clear-day', 'sun'],
-      ['clear-night', 'moon'],
-      ['rain', 'cloud-rain'],
-      ['snow', 'snowflake'],
-      ['sleet', 'cloud-rain'],
-      ['wind', 'wind'],
-      ['fog', 'smog'],
-      ['cloudy', 'cloud'],
-      ['partly-cloudy-day', 'cloud-sun'],
-      ['partly-cloudy-night', 'cloud-moon']
-    ]);
+    const icons = {
+      'clear-day': 'fa-sun',
+      'clear-night': 'fa-moon',
+      'rain': 'fa-cloud-rain',
+      'snow': 'fa-snowflake',
+      'sleet': 'fa-cloud-rain',
+      'wind': 'fa-wind',
+      'fog': 'fa-smog',
+      'cloudy': 'fa-cloud',
+      'partly-cloudy-day': 'fa-cloud-sun',
+      'partly-cloudy-night': 'fa-cloud-moon'
+    };
 
     this.today = {
       temperature: Math.round(res.currently.temperature),
@@ -466,18 +466,13 @@ export default {
       summary: res.daily.data[0].summary
     }
 
-    this.forecasts = []
     for (let i = 0; i < 4; i++) {
-      const current = res.daily.data[i];
-      // *1000 to convert from s to ms
-      const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-      const index = new Date(current.time * 1000).getDay();
-      
+      const current = res.daily.data[i];      
       this.forecasts.push({
-        day: days[index],
+        day: new Date(current.time * 1000).toLocaleDateString('en-US', { weekday: 'short'} ),
         min: Math.round(current.temperatureMin),
         max: Math.round(current.temperatureMax),
-        icon: icons.get(current.icon)
+        icon: icons[current.icon]
       });
     }
     // console.log(forecast);
