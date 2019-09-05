@@ -18,9 +18,9 @@
             <button @click="toggleUnit" :class="{active: !isCelsius}">F</button>
           </div>
         </div>
-        <div class="temperature">
+        <p class="temperature">
           {{ today.temperature }}
-        </div>
+        </p>
         <div class="extras">
           <div>
             <p>{{ today.feelsLike }}</p>
@@ -39,20 +39,20 @@
       <section>
         <p class="summary">{{ today.summary }}</p>
         <p class="relative-time">Updated {{ timeSince }}</p>
-        <div class="forecast-list">
-          <div class="forecast" v-for="(item, index) in forecasts" :key="index" :class="{active: index === 0}" >
-            <p class="day">{{ item.day }}</p>
+        <div class="forecasts">
+          <div class="card" v-for="(item, index) in forecasts" :key="index" :class="{active: index === 0}" >
+            <p>{{ item.day }}</p>
             <i class="fas" :class="item.icon"></i>
-            <span class="minmax">
+            <span class="range">
               <p>{{ item.min }}</p>
               <p>{{ item.max }}</p>
             </span>
           </div>
         </div>
       </section>
-      <footer>
-        <a href="https://darksky.net/poweredby/">Powered by DarkSky</a>
-      </footer>
+      <a href="https://darksky.net/poweredby/" class="footer">
+        Powered by DarkSky
+      </a>
     </div>
   </main>
 </template>
@@ -542,14 +542,18 @@ body {
   background-color: var(--blue-light);
 }
 
-.inputbar {
-  margin-top: 80px;
-  margin-bottom: 16px;
-  display: flex;
-  justify-content: center;
+p {
+  text-align: center;
 }
 
-.inputbar input {
+button {
+  font: inherit;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+input {
   width: 550px;
   height: 50px;
   border: none;
@@ -560,13 +564,17 @@ body {
   color: var(--black);
 }
 
+.inputbar {
+  margin-top: 80px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
+}
+
 .inputbar button {
   width: 100px;
   height: 50px;
-  border: none;
-  font: inherit;
   border-radius: 0 4px 4px 0;
-  cursor: pointer;
   color: var(--blue);
   background-color: var(--blue-lightest);
 }
@@ -587,33 +595,29 @@ body {
   height: 240px;
   border-radius: 4px 4px 0 0;
   background-color: var(--blue-dark);
+  padding-top: 12px;
 }
 
 .top {
-  padding: 12px 12px 0 12px;
+  padding: 0 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .location i {
-  padding-left: 12px;
-  padding-right: 8px;
+  padding: 0 8px;
   font-size: 18px;
   color: var(--blue-light);
 }
 
 .buttons button {
-  font: inherit;
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  border: none;
-  outline: none;
-  cursor: pointer;
   margin-right: 4px;
-  background-color: transparent;
   color: white;
+  background-color: transparent;
 }
 
 .buttons button.active {
@@ -622,13 +626,11 @@ body {
 
 .temperature {
   font-size: 116px;
-  text-align: center;
 }
 
 .extras {
   display: flex;
   justify-content: space-around;
-  text-align: center;
 }
 
 .attribute {
@@ -636,61 +638,53 @@ body {
 }
 
 .summary {
-  text-align: center;
   padding-top: 12px;
   color: var(--black);
 }
 
 .relative-time {
-  text-align: center;
   font-size: 15px;
   color: var(--gray);
 }
 
-.forecast-list {
+.forecasts {
   display: flex;
   justify-content: space-evenly;
   padding-top: 20px;
 }
 
-.forecast {
+.card {
   width: 140px;
   height: 180px;
+  padding-top: 16px;
   border-radius: 4px;
   color: var(--blue);
   border: 1px solid var(--blue-lightest);
 }
 
-.forecast.active {
+.card.active {
   color: white;
   background-color: var(--blue-dark);
 }
 
-.day {
-  padding-top: 16px;
-  text-align: center;
-}
-
-.forecast i {
+.card i {
   display: block;
   font-size: 56px;
   text-align: center;
   padding-top: 24px;
 }
 
-.minmax {
+.range {
   padding-top: 26px;
   display: flex;
   justify-content: space-evenly;
 }
 
-footer {
+.footer {
+  display: block;
   font-size: 15px;
   text-align: center;
   padding: 12px 0;
-}
-
-footer a {
   color: var(--gray);
   text-decoration: none;
 }
