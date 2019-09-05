@@ -6,12 +6,12 @@
         <i class="fas fa-search"></i>
       </button>
     </form>
-    <div class="app-content">
+    <div class="app-content" v-if="location">
       <section class="info">
         <div class="top">
           <div class="location">
             <i class="fas fa-map-marker-alt"></i>
-            <span>{{ location }} - {{ latlong }}</span>
+            <span>{{ location }}</span>
           </div>
           <div class="buttons">
             <button @click="toggleUnit" :class="{active: isCelsius}">C</button>
@@ -430,8 +430,8 @@ export default {
       today: null,
       forecasts: [],
       isCelsius: true,
-      location: 'Tokyo, Japan',
-      latlong: '0,0',
+      location: null,
+      latlong: null,
       inputValue: ''
     }
   },
@@ -508,12 +508,13 @@ export default {
         });
       }
 
+      this.location = res.timezone;
+
       this.start = new Date().getTime();
       this.updateTime();
     }
   },
-  created() {
-    this.fetchInfo();
+  mounted() {
     setInterval(this.updateTime, 60*1000);
   }
 }
