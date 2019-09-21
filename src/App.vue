@@ -6,7 +6,10 @@
         <i class="fas fa-search"></i>
       </button>
     </form>
-    <div class="app-content" v-if="location">
+    <div v-if="loading">
+      Loading...
+    </div>
+    <div class="app-content" v-if="location && !loading">
       <section class="info">
         <div class="top">
           <div class="location">
@@ -432,7 +435,8 @@ export default {
       isCelsius: true,
       location: null,
       latlong: null,
-      inputValue: ''
+      inputValue: '',
+      loading: false
     }
   },
   methods: {
@@ -443,6 +447,8 @@ export default {
       if (loc !== '') {
         const url = `${proxy}https://darksky.net/geo?q=${loc}`;
 
+        this.loading = true;
+
         fetch(url)
         .then(res => res.json())
         .then(data => {
@@ -452,7 +458,13 @@ export default {
             this.latlong = `${data.latitude},${data.longitude}`;
             this.fetchInfo();
           }
-        });
+
+          this.loading = false;
+        })
+        .catch(err => {
+          console.log(err);
+          this.loading = false;
+        })
       }
       this.inputValue = '';
     },
