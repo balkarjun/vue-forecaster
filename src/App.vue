@@ -5,7 +5,9 @@
       <button class="fas fa-search"></button>
     </form>
 
-    <div v-if="loading" class="loader"></div>
+    <div v-if="error != null">{{ error }}</div>
+
+    <div v-else-if="loading" class="loader"></div>
 
     <WeatherCard
       v-else-if="latlong"
@@ -27,6 +29,7 @@ export default {
     return {
       latlong: null,
       loading: false,
+      error: null,
       inputValue: '',
       weatherData: null,
       start: 0,
@@ -35,6 +38,9 @@ export default {
   },
   methods: {
     fetchLocation() {
+      this.loading = false;
+      this.error = null;
+
       const loc = this.inputValue.trim();
       const proxy = 'https://cors-anywhere.herokuapp.com/';
 
@@ -47,16 +53,14 @@ export default {
         .then(res => res.json())
         .then(data => {
           if (data.error) {
-            console.log(data.error);
-            this.loading = false;
-          } else {
-            this.latlong = `${data.latitude},${data.longitude}`;
-            this.fetchInfo();
+            this.error = data.error;
+            return;
           }
+          this.latlong = `${data.latitude},${data.longitude}`;
+          this.fetchInfo();
         })
         .catch(err => {
-          console.log(err);
-          this.loading = false;
+          this.error = 'Unable to fetch weather info';
         });
       }
       this.inputValue = '';
