@@ -144,7 +144,7 @@ export default {
         this.today = {
           temperature: Math.round(data.currently.temperature),
           feelsLike: Math.round(data.currently.apparentTemperature),
-          precipChance: data.currently.precipProbability,
+          precipChance: Math.round(data.currently.precipProbability),
           uvIndex: data.currently.uvIndex,
           summary: data.daily.data[0].summary
         }
