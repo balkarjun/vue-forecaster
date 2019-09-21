@@ -13,9 +13,7 @@
         </div>
       </div>
 
-      <div class="temperature">
-        {{ today.temperature }}
-      </div>
+      <div class="temperature">{{ today.temperature }}</div>
 
       <div class="attributes">
         <div v-for="(item, i) in today.attributes" :key="i">
@@ -29,17 +27,9 @@
       <p class="summary">{{ today.summary }}</p>
       <p class="relative-time">Updated {{ timeSince }}</p>
       
-      <div class="forecasts">
-        <div class="card" v-for="(item, index) in forecasts" :key="index" :class="{active: index === 0}" >
-          <p>{{ item.day }}</p>
-          <i class="fas" :class="item.icon"></i>
-          <span class="range">
-            <p>{{ item.min }}</p>
-            <p>{{ item.max }}</p>
-          </span>
-        </div>
-      </div>
+      <ForecastList :forecasts="forecasts" />
     </section>
+    
     <a href="https://darksky.net/poweredby/" class="footer">
       Powered by DarkSky
     </a>
@@ -47,9 +37,14 @@
 </template>
 
 <script>
+import ForecastList from './ForecastList.vue';
+
 export default {
   name: 'weather-card',
   props: ['timeSince', 'weatherData'],
+  components: {
+    ForecastList
+  },
   data() {
     return {
       isCelsius: true,
@@ -182,39 +177,6 @@ export default {
 .relative-time {
   font-size: 15px;
   color: var(--gray);
-}
-
-.forecasts {
-  display: flex;
-  justify-content: space-evenly;
-  padding-top: 20px;
-}
-
-.card {
-  width: 140px;
-  height: 180px;
-  padding-top: 16px;
-  border-radius: 4px;
-  color: var(--blue);
-  border: 1px solid var(--blue-lightest);
-}
-
-.card.active {
-  color: white;
-  background-color: var(--blue-dark);
-}
-
-.card i {
-  display: block;
-  font-size: 56px;
-  text-align: center;
-  padding-top: 24px;
-}
-
-.range {
-  padding-top: 26px;
-  display: flex;
-  justify-content: space-evenly;
 }
 
 .footer {
