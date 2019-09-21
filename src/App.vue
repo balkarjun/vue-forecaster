@@ -481,12 +481,12 @@ export default {
         this.timeSince = `${parseInt(diff/3600)} hr ago`;
     },
     fetchInfo() {
-      const latlong = '50,0'
       const key = '85e8f9c3f0ba466ca2512a8008d0df8e';
       const proxy = 'https://cors-anywhere.herokuapp.com/';
       const exclude = '[minutely,hourly,alerts,flags]';
-      const url = `${proxy}https://api.darksky.net/forecast/${key}/${latlong}?exclude=${exclude}`;
-      
+      const units = 'si';
+      const url = `${proxy}https://api.darksky.net/forecast/${key}/${this.latlong}?units=${units}&exclude=${exclude}`;
+
       const icons = {
         'clear-day': 'fa-sun',
         'clear-night': 'fa-moon',
@@ -500,30 +500,34 @@ export default {
         'partly-cloudy-night': 'fa-cloud-moon'
       };
 
-      this.today = {
-        temperature: Math.round(res.currently.temperature),
-        feelsLike: Math.round(res.currently.apparentTemperature),
-        precipChance: res.currently.precipProbability,
-        uvIndex: res.currently.uvIndex,
-        summary: res.daily.data[0].summary
-      }
+      fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        this.today = {
+          temperature: Math.round(data.currently.temperature),
+          feelsLike: Math.round(data.currently.apparentTemperature),
+          precipChance: data.currently.precipProbability,
+          uvIndex: data.currently.uvIndex,
+          summary: data.daily.data[0].summary
+        }
 
-      this.forecasts = [];
-      for (let i = 0; i < 4; i++) {
-        const current = res.daily.data[i];      
-        this.forecasts.push({
-          day: new Date(current.time * 1000).toLocaleDateString('en-US', { weekday: 'short'} ),
-          min: Math.round(current.temperatureMin),
-          max: Math.round(current.temperatureMax),
-          icon: icons[current.icon]
-        });
-      }
+        this.forecasts = [];
+        for (let i = 0; i < 4; i++) {
+          const current = data.daily.data[i];      
+          this.forecasts.push({
+            day: new Date(current.time * 1000).toLocaleDateString('en-US', { weekday: 'short'} ),
+            min: Math.round(current.temperatureMin),
+            max: Math.round(current.temperatureMax),
+            icon: icons[current.icon]
+          });
+        }
 
-      this.location = res.timezone;
+        this.location = data.timezone;
 
-      this.start = new Date().getTime();
-      this.updateTime();
-      this.loading = false;
+        this.start = new Date().getTime();
+        this.updateTime();
+        this.loading = false;
+      });
     }
   },
   mounted() {
