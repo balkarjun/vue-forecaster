@@ -6,32 +6,29 @@
           <i class="fas fa-map-marker-alt"></i>
           <span>{{ location }}</span>
         </div>
+
         <div class="buttons">
           <button @click="toggleUnit" :class="{active: isCelsius}">C</button>
           <button @click="toggleUnit" :class="{active: !isCelsius}">F</button>
         </div>
       </div>
-      <p class="temperature">
+
+      <div class="temperature">
         {{ today.temperature }}
-      </p>
-      <div class="extras">
-        <div>
-          <p>{{ today.feelsLike }}</p>
-          <p class="attribute">Feels Like</p>
-        </div>
-        <div>
-          <p>{{ today.precipChance }}%</p>
-          <p class="attribute">Chance of Rain</p>
-        </div>
-        <div>
-          <p>{{ today.uvIndex }}</p>
-          <p class="attribute">UV Index</p>
+      </div>
+
+      <div class="attributes">
+        <div v-for="(item, i) in today.attributes" :key="i">
+          <p>{{ item.value }}</p>
+          <p class="name">{{ item.name }}</p>
         </div>
       </div>
     </section>
+
     <section>
       <p class="summary">{{ today.summary }}</p>
       <p class="relative-time">Updated {{ timeSince }}</p>
+      
       <div class="forecasts">
         <div class="card" v-for="(item, index) in forecasts" :key="index" :class="{active: index === 0}" >
           <p>{{ item.day }}</p>
@@ -87,8 +84,20 @@ export default {
       this.today = {
         temperature: Math.round(data.currently.temperature),
         feelsLike: Math.round(data.currently.apparentTemperature),
-        precipChance: Math.round(data.currently.precipProbability),
-        uvIndex: data.currently.uvIndex,
+        attributes: [
+          { 
+            name: 'Feels Like', 
+            value: Math.round(data.currently.apparentTemperature) 
+          },
+          { 
+            name: 'Chance of Rain', 
+            value: Math.round(data.currently.precipProbability) + '%' 
+          },
+          { 
+            name: 'UV Index', 
+            value: data.currently.uvIndex 
+          }
+        ],
         summary: data.daily.data[0].summary
       }
 
@@ -153,14 +162,15 @@ export default {
 
 .temperature {
   font-size: 116px;
+  text-align: center;
 }
 
-.extras {
+.attributes {
   display: flex;
   justify-content: space-around;
 }
 
-.attribute {
+.name {
   color: var(--blue-lightest);
 }
 
