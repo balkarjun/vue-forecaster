@@ -13,7 +13,7 @@
         </div>
       </div>
 
-      <div class="temperature">{{ today.temperature }}</div>
+      <div class="temperature">{{ today.temperature }}&deg;</div>
 
       <div class="attributes">
         <div v-for="(item, i) in today.attributes" :key="i">
@@ -82,7 +82,7 @@ export default {
         attributes: [
           { 
             name: 'Feels Like', 
-            value: Math.round(data.currently.apparentTemperature) 
+            value: Math.round(data.currently.apparentTemperature) + '\u00B0'
           },
           { 
             name: 'Chance of Rain', 

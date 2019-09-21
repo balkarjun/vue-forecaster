@@ -4,10 +4,10 @@
       <p>{{ item.day }}</p>
 
       <i class="fas" :class="item.icon"></i>
-      
+
       <span class="range">
-        <p>{{ item.min }}</p>
-        <p>{{ item.max }}</p>
+        <p>{{ item.min }}&deg;</p>
+        <p>{{ item.max }}&deg;</p>
       </span>
     </div>
   </div>
