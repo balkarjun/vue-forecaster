@@ -52,7 +52,7 @@
 <script>
 export default {
   name: 'weather-card',
-  props: ['latlong', 'timeSince', 'weatherData'],
+  props: ['timeSince', 'weatherData'],
   data() {
     return {
       isCelsius: true,

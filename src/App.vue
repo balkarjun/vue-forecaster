@@ -1,15 +1,17 @@
 <template>
   <main>
-    <form @submit.prevent="updateLocation" class="inputbar">
+    <form @submit.prevent="fetchLocation" class="inputbar">
       <input type="text" placeholder="Enter a location" v-model="inputValue">
-      <button>
-        <i class="fas fa-search"></i>
-      </button>
+      <button class="fas fa-search"></button>
     </form>
-    <div class="app-loading" v-if="loading">
-      <div class="loader"></div>
-    </div>
-    <WeatherCard :latlong="latlong" :timeSince="timeSince" :weatherData="weatherData" v-else-if="latlong" />
+
+    <div v-if="loading" class="loader"></div>
+
+    <WeatherCard
+      v-else-if="latlong"
+      :timeSince="timeSince"
+      :weatherData="weatherData"
+    />
   </main>
 </template>
 
@@ -32,7 +34,7 @@ export default {
     }
   },
   methods: {
-    updateLocation() {
+    fetchLocation() {
       const loc = this.inputValue.trim();
       const proxy = 'https://cors-anywhere.herokuapp.com/';
 
@@ -148,26 +150,18 @@ button {
   width: 100px;
   height: 50px;
   border-radius: 0 4px 4px 0;
+  font-size: 18px;
   color: var(--blue);
   background-color: var(--blue-lightest);
 }
 
-.inputbar i {
-  font-size: 18px;
-}
-
-.app-loading {
-  display: flex;
-  justify-content: center;
-  margin-top: 50px;
-}
-
 .loader {
+  margin: 50px auto;
+  width: 36px;
+  height: 36px;
   border: 4px solid transparent;
   border-top: 4px solid var(--blue-dark);
   border-radius: 50%;
-  width: 36px;
-  height: 36px;
   animation: spin 1s linear infinite;
 }
 
