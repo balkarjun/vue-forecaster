@@ -6,8 +6,8 @@
         <i class="fas fa-search"></i>
       </button>
     </form>
-    <div v-if="loading">
-      Loading...
+    <div class="app-loading" v-if="loading">
+      <div class="loader"></div>
     </div>
     <div class="app-content" v-if="location && !loading">
       <section class="info">
@@ -454,12 +454,11 @@ export default {
         .then(data => {
           if (data.error) {
             console.log(data.error);
+            this.loading = false;
           } else {
             this.latlong = `${data.latitude},${data.longitude}`;
             this.fetchInfo();
           }
-
-          this.loading = false;
         })
         .catch(err => {
           console.log(err);
@@ -524,6 +523,7 @@ export default {
 
       this.start = new Date().getTime();
       this.updateTime();
+      this.loading = false;
     }
   },
   mounted() {
@@ -699,5 +699,25 @@ input {
   padding: 12px 0;
   color: var(--gray);
   text-decoration: none;
+}
+
+.app-loading {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.loader {
+  border: 4px solid transparent;
+  border-top: 4px solid var(--blue-dark);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 </style>
