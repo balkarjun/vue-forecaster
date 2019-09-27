@@ -13,12 +13,22 @@
         </div>
       </div>
 
-      <div class="temperature">{{ today.temperature }}&deg;</div>
+      <div class="temperature">
+        {{ today.temperature | convert(isCelsius) }}&deg;
+      </div>
 
       <div class="attributes">
-        <div v-for="(item, i) in today.attributes" :key="i">
-          <p>{{ item.value }}</p>
-          <p class="name">{{ item.name }}</p>
+        <div>
+          <p>{{ today.feelsLike | convert(isCelsius) }}&deg;</p>
+          <p class="name">Feels Like</p>
+        </div>
+        <div>
+          <p>{{ today.precipProb }}%</p>
+          <p class="name">Chance of Rain</p>
+        </div>
+        <div>
+          <p>{{ today.uvIndex }}</p>
+          <p class="name">UV Index</p>
         </div>
       </div>
     </section>
@@ -27,7 +37,7 @@
       <p class="summary">{{ today.summary }}</p>
       <p class="relative-time">Updated {{ timeSince }}</p>
 
-      <ForecastList :forecasts="forecasts" />
+      <ForecastList :forecasts="forecasts" :isCelsius="isCelsius" />
     </section>
 
     <a href="https://darksky.net/poweredby/" class="footer">
@@ -44,6 +54,11 @@ export default {
   props: ['timeSince', 'weatherData'],
   components: {
     ForecastList
+  },
+  filters: {
+    convert(value, isCelsius) {
+      return isCelsius ? value : Math.round(value * 1.8 + 32);
+    }
   },
   data() {
     return {
@@ -79,20 +94,8 @@ export default {
       this.today = {
         temperature: Math.round(data.currently.temperature),
         feelsLike: Math.round(data.currently.apparentTemperature),
-        attributes: [
-          {
-            name: 'Feels Like',
-            value: Math.round(data.currently.apparentTemperature) + '\u00B0'
-          },
-          {
-            name: 'Chance of Rain',
-            value: Math.round(data.currently.precipProbability) + '%'
-          },
-          {
-            name: 'UV Index',
-            value: data.currently.uvIndex
-          }
-        ],
+        precipProb: Math.round(data.currently.precipProbability),
+        uvIndex: data.currently.uvIndex,
         summary: data.daily.data[0].summary
       };
 

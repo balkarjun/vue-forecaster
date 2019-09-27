@@ -6,8 +6,8 @@
       <i class="fas" :class="item.icon"></i>
 
       <span class="range">
-        <p>{{ item.min }}&deg;</p>
-        <p>{{ item.max }}&deg;</p>
+        <p>{{ item.min | convert(isCelsius) }}&deg;</p>
+        <p>{{ item.max | convert(isCelsius) }}&deg;</p>
       </span>
     </div>
   </div>
@@ -16,7 +16,12 @@
 <script>
 export default {
   name: 'forecast-list',
-  props: ['forecasts']
+  props: ['forecasts', 'isCelsius'],
+  filters: {
+    convert(value, isCelsius) {
+      return isCelsius ? value : Math.round(value * 1.8 + 32);
+    }
+  }
 };
 </script>
 
