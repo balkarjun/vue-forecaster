@@ -5,7 +5,7 @@
       <button class="fas fa-search"></button>
     </form>
 
-    <div v-if="error != null">{{ error }}</div>
+    <div v-if="error != null" class="error">{{ error }}</div>
 
     <div v-else-if="loading" class="loader"></div>
 
@@ -102,6 +102,8 @@ export default {
   --blue: #2a4365;
   --blue-light: #4c688f;
   --blue-lightest: #dbe1e9;
+  --red-primary: #d32f2f;
+  --red-secondary: #f9e0e0;
   --gray: #666666;
   --black: #212121;
 }
@@ -154,6 +156,17 @@ button {
   font-size: 18px;
   color: var(--blue);
   background-color: var(--blue-lightest);
+}
+
+.error {
+  width: 550px;
+  height: 36px;
+  line-height: 36px;
+  background-color: var(--red-secondary);
+  color: var(--red-primary);
+  margin: 0 auto;
+  text-align: center;
+  border-radius: 4px;
 }
 
 .loader {
