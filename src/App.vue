@@ -66,7 +66,7 @@ export default {
       this.inputValue = '';
     },
     fetchInfo() {
-      const key = '85e8f9c3f0ba466ca2512a8008d0df8e';
+      const key = process.env.VUE_APP_API_KEY;
       const proxy = 'https://cors-anywhere.herokuapp.com/';
       const exclude = '[minutely,hourly,alerts,flags]';
       const units = 'si';
