@@ -1,6 +1,9 @@
 <template>
   <main>
-    <button @click="getCurrentLocation">Use Current Location</button>
+    <button @click="getCurrentLocation" class="geolocation">
+      <i class="fas fa-location-arrow"></i>
+      Use Current Location
+    </button>
 
     <form @submit.prevent="fetchLocation" class="inputbar">
       <input type="text" placeholder="Enter a location" v-model="inputValue" />
@@ -150,8 +153,21 @@ button {
   cursor: pointer;
 }
 
+.geolocation {
+  display: block;
+  margin: 24px auto 16px auto;
+  height: 36px;
+  padding: 0 16px;
+  border-radius: 4px;
+  background-color: var(--blue-lightest);
+}
+
+.geolocation i {
+  padding-right: 8px;
+  color: var(--blue);
+}
+
 .inputbar {
-  margin-top: 80px;
   margin-bottom: 16px;
   display: flex;
   justify-content: center;
