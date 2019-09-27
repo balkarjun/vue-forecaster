@@ -1,5 +1,7 @@
 <template>
   <main>
+    <button @click="getCurrentLocation">Use Current Location</button>
+
     <form @submit.prevent="fetchLocation" class="inputbar">
       <input type="text" placeholder="Enter a location" v-model="inputValue" />
       <button class="fas fa-search"></button>
@@ -37,6 +39,23 @@ export default {
     };
   },
   methods: {
+    getCurrentLocation() {
+      if (navigator.geolocation) {
+        const success = pos => {
+          this.loading = true;
+          this.latlong = `${pos.coords.latitude},${pos.coords.longitude}`;
+          this.fetchInfo();
+        };
+
+        const error = () => {
+          this.error = 'Unable to retrieve your location';
+        };
+
+        navigator.geolocation.getCurrentPosition(success, error);
+      } else {
+        this.error = 'Geolocation is not supported by your browser';
+      }
+    },
     fetchLocation() {
       this.loading = false;
       this.error = null;
