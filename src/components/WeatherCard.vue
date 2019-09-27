@@ -8,8 +8,8 @@
         </div>
 
         <div class="buttons">
-          <button @click="toggleUnit" :class="{active: isCelsius}">C</button>
-          <button @click="toggleUnit" :class="{active: !isCelsius}">F</button>
+          <button @click="toggleUnit" :class="{ active: isCelsius }">C</button>
+          <button @click="toggleUnit" :class="{ active: !isCelsius }">F</button>
         </div>
       </div>
 
@@ -26,10 +26,10 @@
     <section>
       <p class="summary">{{ today.summary }}</p>
       <p class="relative-time">Updated {{ timeSince }}</p>
-      
+
       <ForecastList :forecasts="forecasts" />
     </section>
-    
+
     <a href="https://darksky.net/poweredby/" class="footer">
       Powered by DarkSky
     </a>
@@ -51,7 +51,7 @@ export default {
       today: null,
       location: null,
       forecasts: []
-    }
+    };
   },
   created() {
     this.parseData();
@@ -64,14 +64,14 @@ export default {
       const data = this.weatherData;
 
       const icons = {
+        rain: 'fa-cloud-rain',
+        snow: 'fa-snowflake',
+        sleet: 'fa-cloud-rain',
+        wind: 'fa-wind',
+        fog: 'fa-smog',
+        cloudy: 'fa-cloud',
         'clear-day': 'fa-sun',
         'clear-night': 'fa-moon',
-        'rain': 'fa-cloud-rain',
-        'snow': 'fa-snowflake',
-        'sleet': 'fa-cloud-rain',
-        'wind': 'fa-wind',
-        'fog': 'fa-smog',
-        'cloudy': 'fa-cloud',
         'partly-cloudy-day': 'fa-cloud-sun',
         'partly-cloudy-night': 'fa-cloud-moon'
       };
@@ -80,27 +80,30 @@ export default {
         temperature: Math.round(data.currently.temperature),
         feelsLike: Math.round(data.currently.apparentTemperature),
         attributes: [
-          { 
-            name: 'Feels Like', 
+          {
+            name: 'Feels Like',
             value: Math.round(data.currently.apparentTemperature) + '\u00B0'
           },
-          { 
-            name: 'Chance of Rain', 
-            value: Math.round(data.currently.precipProbability) + '%' 
+          {
+            name: 'Chance of Rain',
+            value: Math.round(data.currently.precipProbability) + '%'
           },
-          { 
-            name: 'UV Index', 
-            value: data.currently.uvIndex 
+          {
+            name: 'UV Index',
+            value: data.currently.uvIndex
           }
         ],
         summary: data.daily.data[0].summary
-      }
+      };
 
       this.forecasts = [];
       for (let i = 0; i < 4; i++) {
-        const current = data.daily.data[i];      
+        const current = data.daily.data[i];
+        const day = new Date(current.time * 1000).toLocaleDateString('en-US', {
+          weekday: 'short'
+        });
         this.forecasts.push({
-          day: new Date(current.time * 1000).toLocaleDateString('en-US', { weekday: 'short'} ),
+          day: day,
           min: Math.round(current.temperatureMin),
           max: Math.round(current.temperatureMax),
           icon: icons[current.icon]
@@ -110,7 +113,7 @@ export default {
       this.location = data.timezone;
     }
   }
-}
+};
 </script>
 
 <style scoped>

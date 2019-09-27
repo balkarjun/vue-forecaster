@@ -1,7 +1,7 @@
 <template>
   <main>
     <form @submit.prevent="fetchLocation" class="inputbar">
-      <input type="text" placeholder="Enter a location" v-model="inputValue">
+      <input type="text" placeholder="Enter a location" v-model="inputValue" />
       <button class="fas fa-search"></button>
     </form>
 
@@ -33,8 +33,8 @@ export default {
       inputValue: '',
       weatherData: null,
       start: 0,
-      timeSince: 0,
-    }
+      timeSince: 0
+    };
   },
   methods: {
     fetchLocation() {
@@ -50,18 +50,18 @@ export default {
         this.loading = true;
 
         fetch(url)
-        .then(res => res.json())
-        .then(data => {
-          if (data.error) {
-            this.error = data.error;
-            return;
-          }
-          this.latlong = `${data.latitude},${data.longitude}`;
-          this.fetchInfo();
-        })
-        .catch(err => {
-          this.error = 'Unable to fetch weather info';
-        });
+          .then(res => res.json())
+          .then(data => {
+            if (data.error) {
+              this.error = data.error;
+              return;
+            }
+            this.latlong = `${data.latitude},${data.longitude}`;
+            this.fetchInfo();
+          })
+          .catch(err => {
+            this.error = 'Unable to fetch weather info';
+          });
       }
       this.inputValue = '';
     },
@@ -73,38 +73,35 @@ export default {
       const url = `${proxy}https://api.darksky.net/forecast/${key}/${this.latlong}?units=${units}&exclude=${exclude}`;
 
       fetch(url)
-      .then(res => res.json())
-      .then(data => {
-        this.weatherData = data;
+        .then(res => res.json())
+        .then(data => {
+          this.weatherData = data;
 
-        this.start = new Date().getTime();
-        this.updateTime();
-        this.loading = false;
-      });
+          this.start = new Date().getTime();
+          this.updateTime();
+          this.loading = false;
+        });
     },
     updateTime() {
       const diff = (new Date().getTime() - this.start) / 1000;
-      console.log('called')
-      if (diff < 60) 
-        this.timeSince = 'just now';
-      else if (diff < 3600) 
-        this.timeSince = `${parseInt(diff/60)} min ago`;
-      else 
-        this.timeSince = `${parseInt(diff/3600)} hr ago`;
+      console.log('called');
+      if (diff < 60) this.timeSince = 'just now';
+      else if (diff < 3600) this.timeSince = `${parseInt(diff / 60)} min ago`;
+      else this.timeSince = `${parseInt(diff / 3600)} hr ago`;
     }
   },
   mounted() {
-    setInterval(this.updateTime, 60*1000);
+    setInterval(this.updateTime, 60 * 1000);
   }
-}
+};
 </script>
 
 <style>
 :root {
   --blue-dark: #152233;
-  --blue: #2A4365;
-  --blue-light: #4C688F;
-  --blue-lightest: #DBE1E9;
+  --blue: #2a4365;
+  --blue-light: #4c688f;
+  --blue-lightest: #dbe1e9;
   --gray: #666666;
   --black: #212121;
 }
@@ -170,7 +167,11 @@ button {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>

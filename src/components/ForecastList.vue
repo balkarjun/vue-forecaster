@@ -17,7 +17,7 @@
 export default {
   name: 'forecast-list',
   props: ['forecasts']
-}
+};
 </script>
 
 <style scoped>
