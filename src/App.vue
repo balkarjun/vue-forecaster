@@ -125,12 +125,10 @@ export default {
 :root {
   --blue-dark: #152233;
   --blue: #2a4365;
-  --blue-light: #4c688f;
-  --blue-lightest: #dbe1e9;
+  --blue-light: #dbe1e9;
+
   --red-primary: #d32f2f;
   --red-secondary: #f9e0e0;
-  --gray: #666666;
-  --black: #212121;
 }
 
 * {
@@ -142,7 +140,7 @@ export default {
 body {
   font-family: 'Rubik', sans-serif;
   color: white;
-  background-color: var(--blue-light);
+  background-color: var(--blue);
 }
 
 p {
@@ -162,7 +160,7 @@ button {
   height: 36px;
   padding: 0 16px;
   border-radius: 4px;
-  background-color: var(--blue-lightest);
+  background-color: var(--blue-light);
   color: var(--blue-dark);
 }
 
@@ -185,7 +183,6 @@ button {
   border-radius: 4px 0 0 4px;
   font: inherit;
   padding-left: 24px;
-  color: var(--black);
 }
 
 .inputbar button {
@@ -194,7 +191,7 @@ button {
   border-radius: 0 4px 4px 0;
   font-size: 18px;
   color: var(--blue);
-  background-color: var(--blue-lightest);
+  background-color: var(--blue-light);
 }
 
 .error {
@@ -209,7 +206,7 @@ button {
 }
 
 .loading {
-  background-color: var(--blue-lightest);
+  background-color: var(--blue-light);
   width: max-content;
   padding: 0 16px;
   margin: 0 auto;

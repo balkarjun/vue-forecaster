@@ -149,7 +149,7 @@ export default {
 .location i {
   padding: 0 8px;
   font-size: 18px;
-  color: var(--blue-light);
+  color: var(--blue);
 }
 
 .buttons button {
@@ -162,7 +162,7 @@ export default {
 }
 
 .buttons button.active {
-  background-color: var(--blue-light);
+  background-color: var(--blue);
 }
 
 .temperature {
@@ -181,17 +181,17 @@ export default {
 }
 
 .name {
-  color: var(--blue-lightest);
+  color: var(--blue-light);
 }
 
 .summary {
   padding-top: 12px;
-  color: var(--black);
+  color: var(--blue-dark);
 }
 
 .relative-time {
   font-size: 15px;
-  color: var(--gray);
+  color: var(--blue);
 }
 
 .footer {
@@ -199,7 +199,7 @@ export default {
   font-size: 15px;
   text-align: center;
   padding: 12px 0;
-  color: var(--gray);
+  color: gray;
   text-decoration: none;
 }
 </style>

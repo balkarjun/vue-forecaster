@@ -38,7 +38,7 @@ export default {
   padding-top: 16px;
   border-radius: 4px;
   color: var(--blue);
-  border: 1px solid var(--blue-lightest);
+  border: 1px solid var(--blue-light);
 }
 
 .card:first-of-type {
