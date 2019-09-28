@@ -10,7 +10,7 @@
       <button class="fas fa-search"></button>
     </form>
 
-    <div v-if="error != null" class="error">{{ error }}</div>
+    <div v-if="error" class="error">{{ error }}</div>
 
     <div v-else-if="loading" class="loading">
       <div class="spinner"></div>
@@ -18,7 +18,7 @@
     </div>
 
     <WeatherCard
-      v-else-if="latlong"
+      v-else-if="weatherData"
       :timeSince="timeSince"
       :weatherData="weatherData"
     />
@@ -35,7 +35,6 @@ export default {
   },
   data() {
     return {
-      latlong: null,
       loading: false,
       error: null,
       inputValue: '',
@@ -47,16 +46,11 @@ export default {
   methods: {
     getCurrentLocation() {
       if (navigator.geolocation) {
-        const success = pos => {
-          this.loading = true;
-          this.latlong = `${pos.coords.latitude},${pos.coords.longitude}`;
-          this.fetchInfo();
-        };
+        const success = pos => this.fetchWeather(pos.coords);
 
-        const error = () => {
-          this.error = 'Unable to retrieve your location';
-        };
+        const error = () => (this.error = 'Unable to retrieve your location');
 
+        this.loading = true;
         navigator.geolocation.getCurrentPosition(success, error);
       } else {
         this.error = 'Geolocation is not supported by your browser';
@@ -81,8 +75,7 @@ export default {
               this.error = data.error;
               return;
             }
-            this.latlong = `${data.latitude},${data.longitude}`;
-            this.fetchInfo();
+            this.fetchWeather(data);
           })
           .catch(err => {
             this.error = 'Unable to fetch weather info';
@@ -90,12 +83,12 @@ export default {
       }
       this.inputValue = '';
     },
-    fetchInfo() {
-      const key = process.env.VUE_APP_API_KEY;
+    fetchWeather(loc) {
+      const API_KEY = process.env.VUE_APP_API_KEY;
       const proxy = 'https://cors-anywhere.herokuapp.com/';
       const exclude = '[minutely,hourly,alerts,flags]';
       const units = 'si';
-      const url = `${proxy}https://api.darksky.net/forecast/${key}/${this.latlong}?units=${units}&exclude=${exclude}`;
+      const url = `${proxy}https://api.darksky.net/forecast/${API_KEY}/${loc.latitude},${loc.longitude}?units=${units}&exclude=${exclude}`;
 
       fetch(url)
         .then(res => res.json())
