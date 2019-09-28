@@ -39,8 +39,7 @@ export default {
       error: null,
       inputValue: '',
       weatherData: null,
-      start: 0,
-      timeSince: 0
+      timeSince: 'just now'
     };
   },
   methods: {
@@ -95,21 +94,24 @@ export default {
         .then(data => {
           this.weatherData = data;
 
-          this.start = new Date().getTime();
-          this.updateTime();
+          if (this.interval) clearInterval(this.interval);
+
+          const startTime = new Date().getTime();
+          this.interval = setInterval(
+            () => this.updateRelativeTime(startTime),
+            60 * 1000
+          );
+
           this.loading = false;
         });
     },
-    updateTime() {
-      const diff = (new Date().getTime() - this.start) / 1000;
-      console.log('called');
+    updateRelativeTime(startTime) {
+      const diff = (new Date().getTime() - startTime) / 1000;
+
       if (diff < 60) this.timeSince = 'just now';
       else if (diff < 3600) this.timeSince = `${parseInt(diff / 60)} min ago`;
       else this.timeSince = `${parseInt(diff / 3600)} hr ago`;
     }
-  },
-  mounted() {
-    setInterval(this.updateTime, 60 * 1000);
   }
 };
 </script>
