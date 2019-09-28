@@ -8,8 +8,12 @@
         </div>
 
         <div class="buttons">
-          <button @click="toggleUnit" :class="{ active: isCelsius }">C</button>
-          <button @click="toggleUnit" :class="{ active: !isCelsius }">F</button>
+          <button @click="toggleUnit" :class="{ active: isCelsius }">
+            &deg;C
+          </button>
+          <button @click="toggleUnit" :class="{ active: !isCelsius }">
+            &deg;F
+          </button>
         </div>
       </div>
 
@@ -149,10 +153,10 @@ export default {
 }
 
 .buttons button {
-  width: 30px;
+  width: 40px;
   height: 30px;
-  border-radius: 50%;
-  margin-right: 4px;
+  padding-right: 4px;
+  border-radius: 4px;
   color: white;
   background-color: transparent;
 }
