@@ -63,10 +63,9 @@ export default {
       this.error = null;
 
       const loc = this.inputValue.trim();
-      const proxy = 'https://cors-anywhere.herokuapp.com/';
 
       if (loc !== '') {
-        const url = `${proxy}https://darksky.net/geo?q=${loc}`;
+        const url = `https://darksky.net/geo?q=${loc}`;
 
         this.loading = true;
 
@@ -87,10 +86,9 @@ export default {
     },
     fetchWeather(loc) {
       const API_KEY = process.env.VUE_APP_API_KEY;
-      const proxy = 'https://cors-anywhere.herokuapp.com/';
       const exclude = '[minutely,hourly,alerts,flags]';
       const units = 'si';
-      const url = `${proxy}https://api.darksky.net/forecast/${API_KEY}/${loc.latitude},${loc.longitude}?units=${units}&exclude=${exclude}`;
+      const url = `https://api.darksky.net/forecast/${API_KEY}/${loc.latitude},${loc.longitude}?units=${units}&exclude=${exclude}`;
 
       fetch(url)
         .then(res => res.json())
