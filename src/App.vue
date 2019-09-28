@@ -44,6 +44,9 @@ export default {
   },
   methods: {
     getCurrentLocation() {
+      this.loading = false;
+      this.error = null;
+
       if (navigator.geolocation) {
         const success = pos => this.fetchWeather(pos.coords);
 
