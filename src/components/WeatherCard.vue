@@ -168,6 +168,11 @@ export default {
 .temperature {
   font-size: 116px;
   text-align: center;
+  position: relative;
+  left: 16px;
+  bottom: 4px;
+  width: max-content;
+  margin: 0 auto;
 }
 
 .attributes {
