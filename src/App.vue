@@ -2,7 +2,7 @@
   <main>
     <button @click="getCurrentLocation" class="geolocation">
       <i class="fas fa-location-arrow"></i>
-      Use Current Location
+      Use My Location
     </button>
 
     <form @submit.prevent="fetchLocation" class="inputbar">
@@ -163,6 +163,7 @@ button {
   padding: 0 16px;
   border-radius: 4px;
   background-color: var(--blue-lightest);
+  color: var(--blue-dark);
 }
 
 .geolocation i {
