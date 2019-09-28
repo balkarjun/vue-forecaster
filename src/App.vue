@@ -12,7 +12,10 @@
 
     <div v-if="error != null" class="error">{{ error }}</div>
 
-    <div v-else-if="loading" class="loader"></div>
+    <div v-else-if="loading" class="loading">
+      <div class="spinner"></div>
+      <p>Fetching Weather</p>
+    </div>
 
     <WeatherCard
       v-else-if="latlong"
@@ -204,14 +207,26 @@ button {
   border-radius: 4px;
 }
 
-.loader {
-  margin: 50px auto;
-  width: 36px;
+.loading {
+  background-color: var(--blue-lightest);
+  width: max-content;
+  padding: 0 16px;
+  margin: 0 auto;
   height: 36px;
-  border: 4px solid transparent;
-  border-top: 4px solid var(--blue-dark);
+  display: flex;
+  border-radius: 4px;
+  align-items: center;
+  color: var(--blue-dark);
+}
+
+.spinner {
+  margin-right: 10px;
+  width: 18px;
+  height: 18px;
+  border: 2px solid transparent;
+  border-top-color: var(--blue-dark);
   border-radius: 50%;
-  animation: spin 1s linear infinite;
+  animation: spin 1s ease-in-out infinite;
 }
 
 @keyframes spin {
